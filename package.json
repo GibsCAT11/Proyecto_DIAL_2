@@ -1,0 +1,14 @@
+{
+  "name": "project-dal",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node test/dalTest.js",
+    "test": "node test/dalTest.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "mongoose": "^7.0.0"
+  }
+}
