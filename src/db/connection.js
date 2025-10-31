@@ -3,11 +3,11 @@ import { config } from 'dotenv';
 config();
 
 const {
-  MYSQL_HOST = 'localhost',
-  MYSQL_USER = 'root',
-  MYSQL_PASSWORD = 'root',
-  MYSQL_DATABASE = 'mi_proyecto_dal',
-  MYSQL_PORT = 3306
+    MYSQL_HOST,
+    MYSQL_USER,
+    MYSQL_PASSWORD,
+    MYSQL_DATABASE ,
+    MYSQL_PORT
 } = process.env;
 
 class DBConnection {
