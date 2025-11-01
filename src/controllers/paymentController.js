@@ -1,4 +1,4 @@
-import PaymentDAO from '../daos/PaymentDAO';
+import PaymentDAO from '../daos/PaymentDAO.js';
 
 class PaymentController {
     

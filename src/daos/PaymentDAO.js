@@ -1,5 +1,5 @@
 // src/data_access/PaymentDAO.js
-import DBConnection from '../db/connection';
+import DBConnection from '../db/connection.js';
 
 class PaymentDAO {
     /**
