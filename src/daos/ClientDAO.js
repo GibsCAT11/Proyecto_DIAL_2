@@ -8,7 +8,7 @@ class ClientDAO {
         const db = await DBConnection.connect();
 
         const [result] = await db.execute(
-            `INSERT INTO clients (name, email, password)
+            `INSERT INTO client (name, email, password)
              VALUES (?, ?, ?)`,
             [name, email, password]
         );
@@ -21,7 +21,7 @@ class ClientDAO {
         const db = await DBConnection.connect();
 
         const [rows] = await db.execute(
-            `SELECT * FROM clients WHERE email = ?`,
+            `SELECT * FROM client WHERE email = ?`,
             [email]
         );
 
@@ -37,7 +37,7 @@ class ClientDAO {
 
         const [rows] = await db.execute(
             `SELECT client_id, name, phone, email, address
-             FROM clients WHERE client_id = ?`,
+             FROM client WHERE client_id = ?`,
             [id]
         );
 
@@ -52,7 +52,7 @@ class ClientDAO {
         const db = await DBConnection.connect();
 
         const [rows] = await db.execute(
-            `SELECT client_id, name, phone, email, address FROM clients`
+            `SELECT client_id, name, phone, email, address FROM client`
         );
 
         return rows.map(row =>
@@ -79,7 +79,7 @@ class ClientDAO {
         values.push(id);
 
         const [result] = await db.execute(
-            `UPDATE clients SET ${fields.join(', ')} WHERE client_id = ?`,
+            `UPDATE client SET ${fields.join(', ')} WHERE client_id = ?`,
             values
         );
 
@@ -93,7 +93,7 @@ class ClientDAO {
         const db = await DBConnection.connect();
 
         const [result] = await db.execute(
-            `DELETE FROM clients WHERE client_id = ?`,
+            `DELETE FROM client WHERE client_id = ?`,
             [id]
         );
 
