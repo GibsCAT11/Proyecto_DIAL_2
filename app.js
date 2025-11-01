@@ -23,15 +23,15 @@ const port = 3000;
 app.use(express.json());
 
 // Rutas JWT
-app.use('/api', autRouter);
-app.use('/api', verifyToken, clientRouter);
-app.use('/api', verifyToken, storeRouter);
-app.use('/api', verifyToken, productRouter);
-app.use('/api', verifyToken, cartRouter);
-app.use('/api', verifyToken, cartDetailRouter);
-app.use('/api', verifyToken, orderRouter);
-app.use('/api', verifyToken, notificationRouter);
-app.use('/api', verifyToken, paymentRouter);
+app.use('/api/v1', autRouter);
+app.use('/api/v1', verifyToken, clientRouter);
+app.use('/api/v1', verifyToken, storeRouter);
+app.use('/api/v1', verifyToken, productRouter);
+app.use('/api/v1', verifyToken, cartRouter);
+app.use('/api/v1', verifyToken, cartDetailRouter);
+app.use('/api/v1', verifyToken, orderRouter);
+app.use('/api/v1', verifyToken, notificationRouter);
+app.use('/api/v1', verifyToken, paymentRouter);
 
 
 app.use(errorHandler);
