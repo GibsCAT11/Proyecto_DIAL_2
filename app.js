@@ -9,6 +9,7 @@ import cartRouter from './src/routes/cartRoutes.js';
 import cartDetailRouter from './src/routes/cartDetailRoutes.js';
 import orderRouter from './src/routes/orderRoutes.js';
 import notificationRouter from './src/routes/notificationRoute.js';
+import paymentRouter from './src/routes/paymentRouter.js';
 
 // Middlewares
 import { errorHandler } from './src/middlewares/errorHandler.js';
@@ -26,10 +27,12 @@ app.use('/api', autRouter);
 app.use('/api', verifyToken, clientRouter);
 app.use('/api', verifyToken, storeRouter);
 app.use('/api', verifyToken, productRouter);
-app.use('/api/', verifyToken, cartRouter);
-app.use('/api/cartDetail', verifyToken, cartDetailRouter);
+app.use('/api', verifyToken, cartRouter);
+app.use('/api', verifyToken, cartDetailRouter);
 app.use('/api', verifyToken, orderRouter);
 app.use('/api', verifyToken, notificationRouter);
+app.use('/api', verifyToken, paymentRouter);
+
 
 app.use(errorHandler);
 
