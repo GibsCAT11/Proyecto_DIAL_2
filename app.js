@@ -3,6 +3,7 @@ import storeRouter from './src/routes/storeRoutes.js';
 import productRouter from './src/routes/productRoutes.js';
 import clientRouter from './src/routes/clientRoutes.js';
 import autRouter from './src/routes/authRoutes.js';
+
 import {errorHandler} from './src/middlewares/errorHandler.js';
 import { verifyToken } from './src/middlewares/authentication.js';
 
@@ -14,8 +15,6 @@ app.use('/api', autRouter);
 app.use('/api', verifyToken, clientRouter);
 app.use('/api', verifyToken, storeRouter);
 app.use('/api', verifyToken, productRouter);
-
-
 
 const port = 3000;
 
