@@ -1,4 +1,3 @@
-// src/data_access/OrderDetailDAO.js
 import DBConnection from '../db/connection';
 
 class OrderDetailDAO {
