@@ -2,8 +2,10 @@ import express from 'express';
 import storeRouter from './src/routes/storeRoutes.js';
 import clientRouter from './src/routes/clientRoutes.js';
 import productRouter from './src/routes/productRoutes.js';
+import orderRouter from './src/routes/orderRoutes.js';
 import {errorHandler} from './src/middlewares/errorHandler.js';
 import { verifyToken } from './src/middlewares/authentication.js';
+
 
 const app = express();
 
@@ -12,6 +14,7 @@ app.use(express.json());
 app.use('/api', verifyToken, storeRouter);
 app.use('/api', verifyToken, clientRouter);
 app.use('/api', verifyToken, productRouter);
+app.use('/api', verifyToken, orderRouter);
 
 const port = 3000;
 
