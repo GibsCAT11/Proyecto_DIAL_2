@@ -1,5 +1,4 @@
-// src/data_access/OrderDAO.js
-import DBConnection from '../db/connection';
+import DBConnection from '../db/connection.js';
 import { ORDER_STATES } from '../constants/orderStates.js'; 
 class OrderDAO {
     /**

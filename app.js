@@ -7,6 +7,7 @@ import clientRouter from './src/routes/clientRoutes.js';
 import autRouter from './src/routes/authRoutes.js';
 import cartRouter from './src/routes/cartRoutes.js';
 import cartDetailRouter from './src/routes/cartDetailRoutes.js';
+import orderRouter from './src/routes/orderRoutes.js';
 
 // Middlewares
 import { errorHandler } from './src/middlewares/errorHandler.js';
@@ -24,8 +25,9 @@ app.use('/api', autRouter);
 app.use('/api', verifyToken, clientRouter);
 app.use('/api', verifyToken, storeRouter);
 app.use('/api', verifyToken, productRouter);
-app.use('/api/cart', verifyToken, cartRouter);
+app.use('/api/', verifyToken, cartRouter);
 app.use('/api/cartDetail', verifyToken, cartDetailRouter);
+app.use('/api', verifyToken, orderRouter);
 
 app.use(errorHandler);
 

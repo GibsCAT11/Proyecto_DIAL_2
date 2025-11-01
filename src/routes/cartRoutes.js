@@ -3,10 +3,10 @@ import express from 'express';
 const cartRouter = express.Router();
 import cartController from '../controllers/cartController.js'
 
-cartRouter.get('/', cartController.getAll);
-cartRouter.get('/:id', cartController.getById);
-cartRouter.post('/', cartController.create);
-cartRouter.put('/:id', cartController.update);
-cartRouter.delete('/:id', cartController.delete);
+cartRouter.get('/cart/', cartController.getAll);
+cartRouter.get('/cart/:id', cartController.getById);
+cartRouter.post('/cart/', cartController.create);
+cartRouter.put('/cart/:id', cartController.update);
+cartRouter.delete('/cart/:id', cartController.delete);
 
 export default cartRouter;

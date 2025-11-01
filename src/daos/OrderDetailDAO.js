@@ -1,5 +1,4 @@
-// src/data_access/OrderDetailDAO.js
-import DBConnection from '../db/connection';
+import DBConnection from '../db/connection.js';
 
 class OrderDetailDAO {
     /**
