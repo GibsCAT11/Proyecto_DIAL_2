@@ -1,5 +1,5 @@
 // src/data_access/NotificationDAO.js
-import DBConnection from '../db/connection';
+import DBConnection from '../db/connection.js';
 
 class NotificationDAO {
     /**

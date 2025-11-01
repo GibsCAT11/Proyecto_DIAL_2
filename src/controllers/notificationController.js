@@ -1,5 +1,5 @@
-import Notification from '../entities/Notification.js'; // Asumiendo que esta es la ruta de tu entidad
-import NotificationDAO from '../data_access/NotificationDAO.js'; // Asumiendo que esta es la ruta de tu DAO
+import Notification from '../entities/Notification.js'; 
+import NotificationDAO from '../daos/NotificationDAO.js'; 
 
 
 export const create = async (req, res) => {

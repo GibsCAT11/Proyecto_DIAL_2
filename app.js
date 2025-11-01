@@ -8,7 +8,7 @@ import autRouter from './src/routes/authRoutes.js';
 import cartRouter from './src/routes/cartRoutes.js';
 import cartDetailRouter from './src/routes/cartDetailRoutes.js';
 import orderRouter from './src/routes/orderRoutes.js';
-import notificationRouter from './src/routes/notificationRoutes.js';
+import notificationRouter from './src/routes/notificationRoute.js';
 
 // Middlewares
 import { errorHandler } from './src/middlewares/errorHandler.js';
