@@ -1,121 +1,104 @@
-import DBConnection from '../db/connection';
-
+import DBConnection from '../db/connection.js';
+import Client from '../entities/Client.js';
 
 class ClientDAO {
-   /**
-     * Saves a client to the database
-     * @param {Object} clientData - Client data
-     */
-    static async create(clientData) {
+
+    // 🔹 Registrar un nuevo cliente (desde authController)
+    static async register({ name, email, password }) {
         const db = await DBConnection.connect();
-        const { name, phone, email, address } = clientData;
 
         const [result] = await db.execute(
-            `INSERT INTO client (name, phone, email, address)
-             VALUES (?, ?, ?, ?)`,
-            [name, phone, email, address]
+            `INSERT INTO clients (name, email, password)
+             VALUES (?, ?, ?)`,
+            [name, email, password]
         );
 
         return result.insertId;
     }
-  
-    /**
-     * Finds a client by their ID
-     * @param {number} id - Client ID
-     * @returns {Object|null}
-     */
+
+    // 🔹 Buscar cliente por email (para login o validación de registro)
+    static async findByEmail(email) {
+        const db = await DBConnection.connect();
+
+        const [rows] = await db.execute(
+            `SELECT * FROM clients WHERE email = ?`,
+            [email]
+        );
+
+        if (rows.length === 0) return null;
+
+        const { client_id, name, phone, email: clientEmail, address, password } = rows[0];
+        return new Client(client_id, name, phone, clientEmail, address, password);
+    }
+
+    // 🔹 Obtener cliente por ID
     static async getById(id) {
         const db = await DBConnection.connect();
 
-        const [clients] = await db.execute(
-            `SELECT client_id, name, phone, email, address 
-             FROM client WHERE client_id = ?`,
+        const [rows] = await db.execute(
+            `SELECT client_id, name, phone, email, address
+             FROM clients WHERE client_id = ?`,
             [id]
         );
 
-        return clients[0] || null;
+        if (rows.length === 0) return null;
+
+        const { client_id, name, phone, email, address } = rows[0];
+        return new Client(client_id, name, phone, email, address);
     }
 
-    /**
-     * Gets all clients
-     * @returns {Array} List of clients
-     */
+    // 🔹 Obtener todos los clientes
     static async getAll() {
         const db = await DBConnection.connect();
 
-        const [clients] = await db.execute(
-            `SELECT client_id, name, phone, email, address FROM client`
+        const [rows] = await db.execute(
+            `SELECT client_id, name, phone, email, address FROM clients`
         );
-        return clients;
+
+        return rows.map(row =>
+            new Client(row.client_id, row.name, row.phone, row.email, row.address)
+        );
     }
-    
-    /**
-     * Updates a client by ID
-     * @param {number} id - Client ID
-     * @param {Object} data - Fields to update
-     * @returns {number|string} Affected rows or error message
-     */
-    static async update(id, data) {
+
+    // 🔹 Actualizar cliente
+    static async update(id, newData) {
         const db = await DBConnection.connect();
-        try {
-            if (!data || Object.keys(data).length === 0) {
-                throw new Error('No fields provided for update');
+
+        const fields = [];
+        const values = [];
+
+        for (const [key, value] of Object.entries(newData)) {
+            if (value !== undefined && key !== 'client_id') {
+                fields.push(`${key} = ?`);
+                values.push(value);
             }
-
-            const fields = [];
-            const values = [];
-
-            for (const [key, value] of Object.entries(data)) {
-                if (value !== undefined && value !== null) {
-                    fields.push(`${key} = ?`);
-                    values.push(value);
-                }
-            }
-
-            if (fields.length === 0) {
-                throw new Error('No valid values to update');
-            }
-
-            const [result] = await db.execute(
-                `UPDATE client SET ${fields.join(', ')} WHERE client_id = ?`,
-                [...values, id]
-            );
-
-            if (result.affectedRows === 0) {
-                throw new Error('Client not found');
-            }
-
-            return result.affectedRows;
-
-        } catch (err) {
-            console.error('Error updating client:', err.message);
-            return err.message;
         }
+
+        if (fields.length === 0) throw new Error('No fields provided for update');
+
+        values.push(id);
+
+        const [result] = await db.execute(
+            `UPDATE clients SET ${fields.join(', ')} WHERE client_id = ?`,
+            values
+        );
+
+        if (result.affectedRows === 0) throw new Error('Client not found');
+
+        return await this.getById(id);
     }
 
-    /**
-     * Deletes a client from the database
-     * @param {number} id - Client ID
-     * @returns {number} Affected rows, or -1 if there is an error
-     */
+    // 🔹 Eliminar cliente
     static async delete(id) {
-        try {
-            const db = await DBConnection.connect();
+        const db = await DBConnection.connect();
 
-            const [result] = await db.execute(
-                'DELETE FROM client WHERE client_id = ?',
-                [id]
-            );
+        const [result] = await db.execute(
+            `DELETE FROM clients WHERE client_id = ?`,
+            [id]
+        );
 
-            return result.affectedRows;
-        } catch (err) {
-            console.error(`An error occurred while deleting the client: ${err.message}`);
-            return -1;
-        }
+        if (result.affectedRows === 0) throw new Error('Client not found');
     }
-
 }
-
-
 
 export default ClientDAO;
