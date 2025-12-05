@@ -2,7 +2,7 @@ import ClientDAO from '../daos/ClientDAO.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-const SECRET_KEY = process.env.SECRET_KEY || 'clave_super_secreta';
+const SECRET_KEY = process.env.SECRET_KEY ;
 
 export const register = async (req, res) => {
     try {
@@ -52,7 +52,8 @@ export const login = async (req, res) => {
         res.cookie("token", token, {
             httpOnly: true,
             secure: false,
-            sameSite: "strict",
+            sameSite: "lax",
+            Path: "/",
             maxAge: 7200000
         });
 

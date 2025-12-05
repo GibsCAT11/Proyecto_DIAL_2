@@ -31,8 +31,8 @@ app.use(express.json());
 
 // Rutas JWT
 app.use('/api/v1', autRouter);
+app.use('/api/v1', storeRouter);
 app.use('/api/v1', verifyToken, clientRouter);
-app.use('/api/v1', verifyToken, storeRouter);
 app.use('/api/v1', verifyToken, productRouter);
 app.use('/api/v1', verifyToken, cartRouter);
 app.use('/api/v1', verifyToken, cartDetailRouter);
