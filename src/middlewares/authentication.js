@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 export const verifyToken = (req, res, next) => {
-    const token = req.header('Authorization');
+    const token = req.cookies.token;
 
     if (!token){
         return res.status(401).json( { error: "Token no fue proporcionado."} )
@@ -9,8 +9,7 @@ export const verifyToken = (req, res, next) => {
 
     try {
         const secretKey = process.env.SECRET_KEY;
-        const tokenWithoutBearer = token.split(" ")[1];
-        const decoded = jwt.verify(tokenWithoutBearer, secretKey);
+        const decoded = jwt.verify(token, secretKey);
 
         req.studentId = decoded.studentId;
 

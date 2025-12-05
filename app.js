@@ -1,4 +1,6 @@
 import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 // Rutas
 import storeRouter from './src/routes/storeRoutes.js';
@@ -20,6 +22,11 @@ import { verifyToken } from './src/middlewares/authentication.js';
 const app = express();
 const port = 3000;
 
+app.use(cookieParser())
+app.use(cors({
+  origin:"http://192.168.100.14:4000",
+  credentials:true
+}));
 app.use(express.json());
 
 // Rutas JWT

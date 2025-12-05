@@ -53,7 +53,7 @@ export const addOrderItem = async (req, res) => {
         }
 
         const detailData = new OrderDetail(
-            null,       // new detail_order_id
+            null,     
             quantity,
             salePrice,
             orderId,

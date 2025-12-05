@@ -8,15 +8,13 @@ export const create = async (req, res) => {
         const data = new Notification(
             null, 
             req.body.message, 
-            req.body.sent_date, // Puede ser null, el constructor lo maneja
+            req.body.sent_date, 
             req.body.type, 
             req.body.order_id
         );
         
-        // Asumiendo que el DAO devuelve el ID insertado
         const newNotificationId = await NotificationDAO.create(data); 
         
-        // En lugar de devolver el objeto completo, devolvemos el ID de la nueva notificación
         return res.status(201).json({ 
             notification_id: newNotificationId,
             message: 'Notificación creada exitosamente.'
@@ -25,14 +23,12 @@ export const create = async (req, res) => {
     } catch (err) {
         console.error(`Error en create (Notification): ${err.message}`);
         
-        // Manejo de errores específicos (ej. validación)
         if (err.message.includes('required') || err.message.includes('invalid')) {
             return res.status(400).json({
                 error: err.message
             });
         }
         
-        // Error interno del servidor
         return res.status(500).json({
             error: 'Error interno del servidor al crear la notificación.'
         });

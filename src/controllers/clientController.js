@@ -1,7 +1,6 @@
 import Client from '../entities/Client.js';
 import ClientDAO from '../daos/ClientDAO.js';
 
-// ✅ Crear cliente
 export const create = async (req, res) => {
     try {
         const data = new Client(null, req.body.name, req.body.phone, req.body.email, req.body.address);
@@ -16,7 +15,6 @@ export const create = async (req, res) => {
     }
 };
 
-// ✅ Obtener cliente por ID
 export const getById = async (req, res) => {
     try {
         const id = req.params.id;
@@ -36,7 +34,6 @@ export const getById = async (req, res) => {
     }
 };
 
-// ✅ Obtener todos los clientes
 export const getAll = async (req, res) => {
     try {
         const clients = await ClientDAO.getAll();
@@ -47,7 +44,6 @@ export const getAll = async (req, res) => {
     }
 };
 
-// ✅ Actualizar cliente
 export const update = async (req, res) => {
     try {
         const id = req.params.id;
@@ -73,7 +69,6 @@ export const update = async (req, res) => {
     }
 };
 
-// ✅ Eliminar cliente
 export const deleted = async (req, res) => {
     try {
         const id = req.params.id;

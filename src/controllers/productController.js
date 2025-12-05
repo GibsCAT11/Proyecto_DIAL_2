@@ -2,7 +2,6 @@ import Product from '../entities/Product.js';
 import ProductDAO from '../daos/ProductDAO.js';
 import StoreDAO from '../daos/StoreDAO.js'; 
 
-// Crear producto
 export const create = async (req, res) => {
     try {
         const { name, description, price, stock, store_id } = req.body;
@@ -11,7 +10,6 @@ export const create = async (req, res) => {
             return res.status(400).json({ error: 'Los campos name, price y store_id son obligatorios.' });
         }
 
-        // Verificar que la tienda exista
         const store = await StoreDAO.getById(store_id);
         if (!store) {
             return res.status(404).json({ error: `La tienda con ID ${store_id} no existe.` });
@@ -30,7 +28,6 @@ export const create = async (req, res) => {
     }
 };
 
-// Obtener todos los productos
 export const getAll = async (req, res) => {
     try {
         const products = await ProductDAO.getAll();
@@ -41,7 +38,6 @@ export const getAll = async (req, res) => {
     }
 };
 
-// Obtener producto por ID
 export const getById = async (req, res) => {
     try {
         const id = parseInt(req.params.id);
@@ -62,7 +58,6 @@ export const getById = async (req, res) => {
     }
 };
 
-// Actualizar producto
 export const update = async (req, res) => {
     try {
         const id = parseInt(req.params.id);
@@ -87,7 +82,6 @@ export const update = async (req, res) => {
     }
 };
 
-// Eliminar producto
 export const deleted = async (req, res) => {
     try {
         const id = parseInt(req.params.id);

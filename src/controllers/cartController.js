@@ -1,4 +1,3 @@
-// src/controllers/cartController.js
 import CartDetailDAO from '../daos/CartDAO.js';
 
 const cartController = {

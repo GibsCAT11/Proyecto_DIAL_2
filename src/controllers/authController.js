@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken';
 
 const SECRET_KEY = process.env.SECRET_KEY || 'clave_super_secreta';
 
-// Registro
 export const register = async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -27,7 +26,6 @@ export const register = async (req, res) => {
     }
 };
 
-// Login
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -51,9 +49,15 @@ export const login = async (req, res) => {
             { expiresIn: '2h' }
         );
 
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: "strict",
+            maxAge: 7200000
+        });
+
         res.status(200).json({
             message: 'Inicio de sesión exitoso',
-            token,
             client: {
                 id: client.client_id,
                 name: client.name,
@@ -64,3 +68,19 @@ export const login = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+export const logout = (req, res) => {
+    try {
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: false,
+            sameSite: "strict"
+        });
+        res.status(200).json({ message: "Logout exitoso" });
+
+    } catch (error) {
+        res.status(500).json({"error":error.message})
+    }
+
+};
+
